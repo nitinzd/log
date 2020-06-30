@@ -1,0 +1,37 @@
+<h1>Showing the article</h1>
+<%= link_to "Show all articles", articles_path %>
+
+Title:
+<br/>
+<%= @article.title%>
+<br/>
+Description:
+<br/>
+<p>
+<%=@article.description%>
+</p>
+
+<h2> Add a Comment</h2>
+<%= simple_form_for [@article, @article.comments.build] do |form| %>
+<%= form.input :commenter%>
+<%= form.input :body%>
+<%= form.submit%>
+<%end%>
+
+<h3> Comments </h3>
+
+<% if @article.comments.count>0%>
+<%@article.comments.each do |c|%>
+<% if c.id!=nil%>
+commenter:
+<br/>
+<%= c.commenter%>
+<br>
+Body:
+<p>
+<%= c.body%>
+</p>
+<%= link_to "Delete comment", [@article, c], method: :delete, data: {confirm: "Are you sure?"}%>
+<%end%>
+<%end%>
+<%end%>
